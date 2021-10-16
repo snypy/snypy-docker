@@ -27,7 +27,11 @@ services:
       SECRET_KEY: "secret"
       ALLOWED_HOSTS: "localhost"
       DATABASE_URL: "psql://postgres:postgres@postgres:5432/db"
-      EMAIL_CONFIG: "smtp://@mail:1025"
+      EMAIL_URL: "smtp://mail:1025"
+      CORS_ORIGIN_WHITELIST: "http://localhost:4200"
+      REGISTER_VERIFICATION_URL: "http://localhost:4200/verify-user/"
+      RESET_PASSWORD_VERIFICATION_URL: "http://localhost:4200/reset-password/"
+      REGISTER_EMAIL_VERIFICATION_URL: "http://localhost:4200/verify-email/"
     ports:
       - "8000:8000"
     depends_on:
