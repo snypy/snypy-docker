@@ -1,0 +1,35 @@
+version: "3"
+
+volumes:
+  db_data:
+
+services:
+  db:
+    image: postgres
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  mail:
+    image: msztolcman/sendria:v2.2.2.0
+    ports:
+      - "1080:1080"
+
+  app:
+    image: ghcr.io/snypy/snypy-backend:latest
+    build: ./backend/
+    command: python manage.py runserver 0.0.0.0:8000
+    environment:
+      DEBUG: "False"
+      SECRET_KEY: "secret"
+      ALLOWED_HOSTS: "localhost"
+      DATABASE_URL: "psql://postgres:postgres@postgres:5432/db"
+      EMAIL_CONFIG: "smtp://@mail:1025"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - mail

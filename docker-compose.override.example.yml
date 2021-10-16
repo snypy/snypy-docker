@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  app:
+    command: python manage.py runserver 0.0.0.0:8000
+    environment:
+      DEBUG: "True"
+      SECRET_KEY: "changeme!"
+      DATABASE_URL: "sqlite:////data/db.sqlite3"
+    volumes:
+      - ./data/app/:/data/
