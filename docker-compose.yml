@@ -9,9 +9,9 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=database
+      - POSTGRES_USER=db-user
+      - POSTGRES_PASSWORD=db-pass
 
   mail:
     image: msztolcman/sendria:v2.2.2.0
@@ -26,7 +26,7 @@ services:
       DEBUG: "False"
       SECRET_KEY: "secret"
       ALLOWED_HOSTS: "localhost"
-      DATABASE_URL: "psql://postgres:postgres@postgres:5432/db"
+      DATABASE_URL: "psql://db-user:db-pass@db:5432/database"
       EMAIL_URL: "smtp://mail:1025"
       CORS_ORIGIN_WHITELIST: "http://localhost:4200"
       REGISTER_VERIFICATION_URL: "http://localhost:4200/verify-user/"

@@ -7,7 +7,7 @@ WORKDIR /usr/src/app
 RUN git clone https://github.com/nezhar/snypy-backend .
 RUN pip install pip -U
 RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install gunicorn
+RUN pip install gunicorn psycopg2-binary
 
 WORKDIR /usr/src/app/snypy
 EXPOSE 8000

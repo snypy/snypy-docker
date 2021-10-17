@@ -8,4 +8,5 @@ services:
       SECRET_KEY: "changeme!"
       DATABASE_URL: "sqlite:////data/db.sqlite3"
     volumes:
-      - ./data/app/:/data/
+      - ./data/db/:/data/
+      - ./data/fixtures/:/fixtures/
