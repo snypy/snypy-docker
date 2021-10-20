@@ -28,12 +28,20 @@ services:
       ALLOWED_HOSTS: "localhost"
       DATABASE_URL: "psql://db-user:db-pass@db:5432/database"
       EMAIL_URL: "smtp://mail:1025"
-      CORS_ORIGIN_WHITELIST: "http://localhost:4200"
-      REGISTER_VERIFICATION_URL: "http://localhost:4200/verify-user/"
-      RESET_PASSWORD_VERIFICATION_URL: "http://localhost:4200/reset-password/"
-      REGISTER_EMAIL_VERIFICATION_URL: "http://localhost:4200/verify-email/"
+      CORS_ORIGIN_WHITELIST: "http://localhost:8080"
+      REGISTER_VERIFICATION_URL: "http://localhost:8080/verify-user/"
+      RESET_PASSWORD_VERIFICATION_URL: "http://localhost:8080/reset-password/"
+      REGISTER_EMAIL_VERIFICATION_URL: "http://localhost:8080/verify-email/"
     ports:
       - "8000:8000"
     depends_on:
       - db
       - mail
+
+  ui:
+    image: ghcr.io/snypy/snypy-frontend:latest
+    build: ./frontend/
+    environment:
+      REST_API_URL: "http://localhost:8000/api/v1/"
+    ports:
+      - "8080:80"
