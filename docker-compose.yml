@@ -30,6 +30,10 @@ services:
     depends_on:
       - db
 
+  static:
+    image: ghcr.io/snypy/snypy-static:latest
+    build: ./static/
+
   ui:
     image: ghcr.io/snypy/snypy-frontend:latest
     build: ./frontend/

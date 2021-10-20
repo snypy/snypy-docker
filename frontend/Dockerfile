@@ -11,5 +11,6 @@ RUN npm run build --prod
 FROM nginx:1.21-alpine
 WORKDIR /root/
 COPY --from=build /usr/src/app/dist /usr/share/nginx/html
+COPY default.conf /etc/nginx/conf.d/default.conf
 COPY entrypoint.sh entrypoint.sh
 CMD ["sh", "entrypoint.sh"]
