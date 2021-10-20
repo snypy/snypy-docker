@@ -2,11 +2,20 @@ version: "3"
 
 services:
   api:
-    command: python manage.py runserver 0.0.0.0:8000
     environment:
-      DEBUG: "True"
+      ALLOWED_HOSTS: "127.0.0.1"
       SECRET_KEY: "changeme!"
-      DATABASE_URL: "sqlite:////data/db.sqlite3"
+      CORS_ORIGIN_WHITELIST: "http://127.0.0.1:8080"
+      REGISTER_VERIFICATION_URL: "http://127.0.0.1:8080/verify-user/"
+      RESET_PASSWORD_VERIFICATION_URL: "http://127.0.0.1:8080/reset-password/"
+      REGISTER_EMAIL_VERIFICATION_URL: "http://127.0.0.1:8080/verify-email/"
+    ports:
+      - "8000:8000"
     volumes:
-      - ./data/db/:/data/
       - ./data/fixtures/:/fixtures/
+
+  ui:
+    environment:
+      REST_API_URL: "http://127.0.0.1:8000/api/v1/"
+    ports:
+      - "8080:80"
