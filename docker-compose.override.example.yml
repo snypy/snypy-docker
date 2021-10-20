@@ -5,6 +5,7 @@ services:
     environment:
       ALLOWED_HOSTS: "127.0.0.1"
       SECRET_KEY: "changeme!"
+      EMAIL_URL: "smtp://mail:1025"
       CORS_ORIGIN_WHITELIST: "http://127.0.0.1:8080"
       REGISTER_VERIFICATION_URL: "http://127.0.0.1:8080/verify-user/"
       RESET_PASSWORD_VERIFICATION_URL: "http://127.0.0.1:8080/reset-password/"
@@ -19,3 +20,8 @@ services:
       REST_API_URL: "http://127.0.0.1:8000/api/v1/"
     ports:
       - "8080:80"
+
+  mail:
+    image: msztolcman/sendria:v2.2.2.0
+    ports:
+      - "1080:1080"

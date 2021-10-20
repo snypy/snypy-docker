@@ -13,11 +13,6 @@ services:
       - POSTGRES_USER=db-user
       - POSTGRES_PASSWORD=db-pass
 
-  mail:
-    image: msztolcman/sendria:v2.2.2.0
-    ports:
-      - "1080:1080"
-
   api:
     image: ghcr.io/snypy/snypy-backend:latest
     build: ./backend/
@@ -27,14 +22,13 @@ services:
       SECRET_KEY: "secret"
       ALLOWED_HOSTS: "localhost"
       DATABASE_URL: "psql://db-user:db-pass@db:5432/database"
-      EMAIL_URL: "smtp://mail:1025"
+      EMAIL_URL: "smtp://user:pass@mailserver:25"
       CORS_ORIGIN_WHITELIST: "http://localhost:8080"
       REGISTER_VERIFICATION_URL: "http://localhost:8080/verify-user/"
       RESET_PASSWORD_VERIFICATION_URL: "http://localhost:8080/reset-password/"
       REGISTER_EMAIL_VERIFICATION_URL: "http://localhost:8080/verify-email/"
     depends_on:
       - db
-      - mail
 
   ui:
     image: ghcr.io/snypy/snypy-frontend:latest
