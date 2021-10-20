@@ -1027,7 +1027,9 @@
     "fields": {
         "created_date": "2018-04-22T07:26:49.519Z",
         "modified_date": "2018-06-28T20:37:21.794Z",
-        "user": null,
+        "user": [
+            "admin"
+        ],
         "team": 1,
         "title": "Wordpress Docker Compose",
         "description": "Easy Wordpress development with Docker and Docker Compose",
@@ -1040,7 +1042,9 @@
     "fields": {
         "created_date": "2018-04-25T17:42:53.893Z",
         "modified_date": "2018-06-28T20:37:28.976Z",
-        "user": null,
+        "user": [
+            "admin"
+        ],
         "team": 1,
         "title": "Docker database dumps",
         "description": "sudo ./export.sh",
@@ -1053,7 +1057,9 @@
     "fields": {
         "created_date": "2018-04-25T17:55:10.896Z",
         "modified_date": "2018-06-13T09:29:46.610Z",
-        "user": null,
+        "user": [
+            "admin"
+        ],
         "team": 1,
         "title": "Markdown reference",
         "description": "This is intended as a quick reference for markdown syntax.",
@@ -1066,7 +1072,9 @@
     "fields": {
         "created_date": "2018-09-12T19:39:21.380Z",
         "modified_date": "2019-12-30T18:45:14.495Z",
-        "user": null,
+        "user": [
+            "admin"
+        ],
         "team": null,
         "title": "Code 2",
         "description": "Test",
