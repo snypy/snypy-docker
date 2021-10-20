@@ -18,7 +18,7 @@ services:
     ports:
       - "1080:1080"
 
-  app:
+  api:
     image: ghcr.io/snypy/snypy-backend:latest
     build: ./backend/
     command: python manage.py runserver 0.0.0.0:8000
