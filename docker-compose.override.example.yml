@@ -6,7 +6,7 @@ services:
       ALLOWED_HOSTS: "127.0.0.1"
       SECRET_KEY: "changeme!"
       EMAIL_URL: "smtp://mail:1025"
-      STATIC_URL: "http://127.0.0.1:8081"
+      STATIC_URL: "http://127.0.0.1:8081/"
       CORS_ORIGIN_WHITELIST: "http://127.0.0.1:8080"
       REGISTER_VERIFICATION_URL: "http://127.0.0.1:8080/verify-user/"
       RESET_PASSWORD_VERIFICATION_URL: "http://127.0.0.1:8080/reset-password/"
@@ -17,8 +17,6 @@ services:
       - ./data/fixtures/:/fixtures/
 
   static:
-    image: ghcr.io/snypy/snypy-static:latest
-    build: ./static/
     ports:
       - "8081:80"
 

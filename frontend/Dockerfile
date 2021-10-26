@@ -9,7 +9,6 @@ RUN npm run build --prod
 
 # https://hub.docker.com/_/nginx
 FROM nginx:1.21-alpine
-WORKDIR /root/
 COPY --from=build /usr/src/app/dist /usr/share/nginx/html
 COPY default.conf /etc/nginx/conf.d/default.conf
 COPY entrypoint.sh entrypoint.sh

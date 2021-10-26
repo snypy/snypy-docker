@@ -21,5 +21,4 @@ RUN python manage.py collectstatic --noinput
 
 # https://hub.docker.com/_/nginx
 FROM nginx:1.21-alpine
-WORKDIR /root/
 COPY --from=build /static /usr/share/nginx/html
