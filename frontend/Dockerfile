@@ -1,11 +1,12 @@
 # https://hub.docker.com/_/node
 FROM node:16 AS build
+ARG GIT_HASH="master"
 WORKDIR /usr/src/app
 RUN apt-get update && apt-get install git -y
 RUN git clone https://github.com/nezhar/snypy-frontend .
+RUN git checkout $GIT_HASH
 RUN npm install
 RUN npm run build --prod
-
 
 # https://hub.docker.com/_/nginx
 FROM nginx:1.21-alpine
