@@ -2,9 +2,10 @@
 FROM python:3.10-slim as build
 
 RUN apt-get update && apt-get install git -y
-
+ARG GIT_HASH="master"
 WORKDIR /usr/src/app
 RUN git clone https://github.com/nezhar/snypy-backend .
+RUN git checkout $GIT_HASH
 RUN pip install pip -U
 RUN pip install --no-cache-dir -r requirements.txt
 
