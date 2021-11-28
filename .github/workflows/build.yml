@@ -32,8 +32,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Check if build and push is required
-        run: echo "SKIP=1" >> $GITHUB_ENV
-        if: docker-compose pull ${{ matrix.service }}
+        run: if docker-compose pull ${{ matrix.service }}; then echo "SKIP=1" >> $GITHUB_ENV; else echo "SKIP=0" >> $GITHUB_ENV; fi 
 
       - name: Build container image
         run: docker-compose build ${{ matrix.service }}
