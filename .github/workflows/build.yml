@@ -1,0 +1,44 @@
+name: build_images
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - version_var: "API_VERSION"
+            remote_var: "API_REMOTE"
+            service: "api"
+          - version_var: "API_VERSION"
+            remote_var: "STATIC_REMOTE"
+            service: "static"
+          - version_var: "UI_VERSION"
+            remote_var: "UI_REMOTE"
+            service: "ui"
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check if build and push is required
+        run: echo "SKIP=1" >> $GITHUB_ENV
+        if: docker-compose pull ${{ matrix.service }}
+
+      - name: Build container image
+        run: docker-compose build ${{ matrix.service }}
+        if: env.SKIP != 1
+
+      - name: Push container image
+        run: docker-compose push ${{ matrix.service }}
+        if: env.SKIP != 1
