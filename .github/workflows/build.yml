@@ -10,16 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        include:
-          - version_var: "API_VERSION"
-            remote_var: "API_REMOTE"
-            service: "api"
-          - version_var: "API_VERSION"
-            remote_var: "STATIC_REMOTE"
-            service: "static"
-          - version_var: "UI_VERSION"
-            remote_var: "UI_REMOTE"
-            service: "ui"
+        service: ["api", "static", "ui"]
 
     steps:
       - uses: actions/checkout@v2
