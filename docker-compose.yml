@@ -14,11 +14,11 @@ services:
       - POSTGRES_PASSWORD=db-pass
 
   api:
-    image: ghcr.io/snypy/snypy-backend:v1.0-alpha.2
+    image: ${API_REMOTE}:${API_VERSION}
     build:
       context: ./backend/
       args:
-        GIT_HASH: "v1.0-alpha.2"
+        GIT_HASH: "${API_VERSION}"
     command: gunicorn --bind 0.0.0.0:8000 snypy.wsgi --log-level info
     environment:
       DEBUG: "False"
@@ -34,17 +34,17 @@ services:
       - db
 
   static:
-    image: ghcr.io/snypy/snypy-static:v1.0-alpha.2
+    image: ${STATIC_REMOTE}:${API_VERSION}
     build:
       context: ./static/
       args:
-        GIT_HASH: "v1.0-alpha.2"
+        GIT_HASH: "${API_VERSION}"
 
   ui:
-    image: ghcr.io/snypy/snypy-frontend:v1.0-alpha.4
+    image: ${UI_REMOTE}:${UI_VERSION}
     build:
       context: ./frontend/
       args:
-        GIT_HASH: "v1.0-alpha.4"
+        GIT_HASH: "${UI_VERSION}"
     environment:
       REST_API_URL: "http://localhost:8000/api/v1/"
