@@ -152,3 +152,9 @@ snypy-docker_api_1      gunicorn --bind 0.0.0.0:80 ...   Up      127.0.0.1:8000-
 snypy-docker_db_1       docker-entrypoint.sh postgres    Up      5432/tcp                
 snypy-docker_ui_1       /docker-entrypoint.sh sh e ...   Up      127.0.0.1:8080->80/tcp 
 ```
+
+## Update env file
+
+* Load environment from file: `export $(cat .env | xargs)`
+* Set new environment: `export API_VERSION=1.1.0`
+* Update environment file: `envsubst < .env.template > .env`
