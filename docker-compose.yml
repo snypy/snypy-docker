@@ -48,4 +48,4 @@ services:
       args:
         GIT_HASH: "${UI_VERSION}"
     environment:
-      REST_API_URL: "http://localhost:8000/api/v1/"
+      REST_API_URL: "http://localhost:8000"
