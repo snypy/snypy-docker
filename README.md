@@ -3,9 +3,11 @@
 ## Setup Application
 
 * Create `docker-compose.override.yml` based on `docker-compose.override.example.yml` on adapt configuration
-* Start containers: `docker-compose up`
+* Pull container images: `docker-compose pull`
+* Start the database: `docker-compose up -d db`
 * Run migrations: `docker-compose run --rm api python manage.py migrate`
 * Load data from fixture: `docker-compose run --rm api python manage.py loaddata /fixtures/setup.json`
+* Start containers: `docker-compose up`
 
 ## Working with fixtures 
 
