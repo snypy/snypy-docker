@@ -25,7 +25,7 @@ services:
     environment:
       REST_API_URL: "http://127.0.0.1:8000"
     ports:
-      - "8080:80"
+      - "80:80"
 
   mail:
     image: msztolcman/sendria:v2.2.2.0

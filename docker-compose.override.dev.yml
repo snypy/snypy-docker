@@ -31,4 +31,4 @@ services:
     environment:
       REST_API_URL: "http://localhost:8000"
     ports:
-      - "8080:80"
+      - "80:80"
