@@ -13,10 +13,9 @@ jobs:
         service: ["api", "static", "ui"]
 
     steps:
-      - uses: actions/checkout@v2
-
+      - uses: actions/checkout@v4
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -32,3 +31,37 @@ jobs:
       - name: Push container image
         run: docker-compose push ${{ matrix.service }}
         if: env.SKIP != 1
+
+      - name: Dotenv Action
+        uses: falti/dotenv-action@v1.0.4
+
+      - name: Tag api container for dockerhub
+        run: docker tag ${{ API_REMOTE }}:${{ API_VERSION }} snypy/backend:${{ API_VERSION }}
+        if: env.SKIP != 1 && matrix.service == 'api'
+      
+      - name: Tag static container for dockerhub
+        run: docker tag ${{ STATIC_REMOTE }}:${{ STATIC_VERSION }} snypy/static:${{ STATIC_VERSION }}
+        if: env.SKIP != 1 && matrix.service == 'static'
+
+      - name: Tag ui container for dockerhub
+        run: docker tag ${{ UI_REMOTE }}:${{ UI_VERSION }} snypy/frontend:${{ UI_VERSION }}
+        if: env.SKIP != 1 && matrix.service == 'ui'
+      
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: docker.io
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      
+      - name: Push api container to dockerhub
+        run: docker push snypy/backend:${{ API_VERSION }}
+        if: env.SKIP != 1 && matrix.service == 'api'
+      
+      - name: Push static container to dockerhub
+        run: docker push snypy/static:${{ STATIC_VERSION }}
+        if: env.SKIP != 1 && matrix.service == 'static'
+      
+      - name: Push ui container to dockerhub
+        run: docker push snypy/frontend:${{ UI_VERSION }}
+        if: env.SKIP != 1 && matrix.service == 'ui'
