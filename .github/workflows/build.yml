@@ -40,15 +40,21 @@ jobs:
           keys-case: bypass
 
       - name: Tag api container for dockerhub
-        run: docker tag ${{ steps.dotenv.outputs.API_REMOTE }}:${{ steps.dotenv.outputs.API_VERSION }} snypy/backend:${{ steps.dotenv.outputs.API_VERSION }}
+        run: |
+          docker tag ${{ steps.dotenv.outputs.API_REMOTE }}:${{ steps.dotenv.outputs.API_VERSION }} snypy/backend:${{ steps.dotenv.outputs.API_VERSION }}
+          docker tag ${{ steps.dotenv.outputs.API_REMOTE }}:${{ steps.dotenv.outputs.API_VERSION }} snypy/backend:latest
         if: env.SKIP != 1 && matrix.service == 'api'
       
       - name: Tag static container for dockerhub
-        run: docker tag ${{ steps.dotenv.outputs.STATIC_REMOTE }}:${{ steps.dotenv.outputs.STATIC_VERSION }} snypy/static:${{ steps.dotenv.outputs.STATIC_VERSION }}
+        run: |
+          docker tag ${{ steps.dotenv.outputs.STATIC_REMOTE }}:${{ steps.dotenv.outputs.STATIC_VERSION }} snypy/static:${{ steps.dotenv.outputs.STATIC_VERSION }}
+          docker tag ${{ steps.dotenv.outputs.STATIC_REMOTE }}:${{ steps.dotenv.outputs.STATIC_VERSION }} snypy/static:latest
         if: env.SKIP != 1 && matrix.service == 'static'
 
       - name: Tag ui container for dockerhub
-        run: docker tag ${{ steps.dotenv.outputs.UI_REMOTE }}:${{ steps.dotenv.outputs.UI_VERSION }} snypy/frontend:${{ steps.dotenv.outputs.UI_VERSION }}
+        run: |
+          docker tag ${{ steps.dotenv.outputs.UI_REMOTE }}:${{ steps.dotenv.outputs.UI_VERSION }} snypy/frontend:${{ steps.dotenv.outputs.UI_VERSION }}
+          docker tag ${{ steps.dotenv.outputs.UI_REMOTE }}:${{ steps.dotenv.outputs.UI_VERSION }} snypy/frontend:latest
         if: env.SKIP != 1 && matrix.service == 'ui'
       
       - name: Login to dockerhub
@@ -59,13 +65,19 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
       
       - name: Push api container to dockerhub
-        run: docker push snypy/backend:${{ steps.dotenv.outputs.API_VERSION }}
+        run: |
+          docker push snypy/backend:${{ steps.dotenv.outputs.API_VERSION }}
+          docker push snypy/backend:latest
         if: env.SKIP != 1 && matrix.service == 'api'
       
       - name: Push static container to dockerhub
-        run: docker push snypy/static:${{ steps.dotenv.outputs.STATIC_VERSION }}
+        run: |
+          docker push snypy/static:${{ steps.dotenv.outputs.STATIC_VERSION }}
+          docker push snypy/static:latest
         if: env.SKIP != 1 && matrix.service == 'static'
       
       - name: Push ui container to dockerhub
-        run: docker push snypy/frontend:${{ steps.dotenv.outputs.UI_VERSION }}
+        run: |
+          docker push snypy/frontend:${{ steps.dotenv.outputs.UI_VERSION }}
+          docker push snypy/frontend:latest
         if: env.SKIP != 1 && matrix.service == 'ui'
