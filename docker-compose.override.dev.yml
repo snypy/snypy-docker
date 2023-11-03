@@ -2,6 +2,10 @@ version: "3"
 
 services:
   api:
+    image: snypy-dev
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile.dev
     environment:
       DEBUG: "True"
       ALLOWED_HOSTS: "localhost"
@@ -11,6 +15,8 @@ services:
       REGISTER_VERIFICATION_URL: "http://localhost:4200/verify-user/"
       RESET_PASSWORD_VERIFICATION_URL: "http://localhost:4200/set-password/?token={token}"
       REGISTER_EMAIL_VERIFICATION_URL: "http://localhost:4200/verify-email/"
+      SENTRY_ENABLED: "True"
+      SENTRY_DSN: "http://changeme@localhost:9000/1"
     ports:
       - "8000:8000"
     volumes:
