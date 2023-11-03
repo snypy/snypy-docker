@@ -33,6 +33,7 @@ jobs:
         if: env.SKIP != 1
 
       - name: Dotenv Action
+        id: dotenv
         uses: falti/dotenv-action@v1.0.4
         with:
           log-variables: true
