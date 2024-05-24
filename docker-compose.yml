@@ -18,7 +18,13 @@ services:
     build:
       context: ./backend/
       args:
-        GIT_HASH: "${API_VERSION}"
+        GIT_HASH: master
+      x-bake:
+        platforms:
+          - linux/i386
+          - linux/amd64
+          - linux/arm/v7
+          - linux/arm64
     command: gunicorn --bind 0.0.0.0:8000 snypy.wsgi --log-level info
     environment:
       DEBUG: "False"
@@ -40,13 +46,25 @@ services:
     build:
       context: ./static/
       args:
-        GIT_HASH: "${API_VERSION}"
+        GIT_HASH: master
+      x-bake:
+        platforms:
+          - linux/i386
+          - linux/amd64
+          - linux/arm/v7
+          - linux/arm64
 
   ui:
     image: ${UI_REMOTE}:${UI_VERSION}
     build:
       context: ./frontend/
       args:
-        GIT_HASH: "${UI_VERSION}"
+        GIT_HASH: master
+      x-bake:
+        platforms:
+          - linux/i386
+          - linux/amd64
+          - linux/arm/v7
+          - linux/arm64
     environment:
       REST_API_URL: "http://localhost:8000"

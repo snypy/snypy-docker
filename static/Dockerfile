@@ -1,6 +1,5 @@
 # https://hub.docker.com/_/python
-FROM python:3.10-slim as build
-
+FROM --platform=$BUILDPLATFORM python:3.12-slim as build
 RUN apt-get update && apt-get install git -y
 ARG GIT_HASH="master"
 WORKDIR /usr/src/app
@@ -20,7 +19,6 @@ ENV REGISTER_EMAIL_VERIFICATION_URL=static
 ENV CSRF_TRUSTED_ORIGINS=static
 RUN python manage.py collectstatic --noinput
 
-
 # https://hub.docker.com/_/nginx
-FROM nginx:1.21-alpine
+FROM nginx:1.25-alpine
 COPY --from=build /static /usr/share/nginx/html

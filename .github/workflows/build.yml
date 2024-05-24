@@ -24,12 +24,11 @@ jobs:
       - name: Check if build and push is required
         run: if docker-compose pull ${{ matrix.service }}; then echo "SKIP=1" >> $GITHUB_ENV; else echo "SKIP=0" >> $GITHUB_ENV; fi 
 
-      - name: Build container image
-        run: docker-compose build ${{ matrix.service }}
-        if: env.SKIP != 1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-      - name: Push container image
-        run: docker-compose push ${{ matrix.service }}
+      - name: Build container image
+        run: docker buildx bake ${{ matrix.service }} --push
         if: env.SKIP != 1
 
       - name: Dotenv Action
