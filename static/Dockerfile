@@ -7,7 +7,7 @@ WORKDIR /usr/src/app
 RUN git clone https://github.com/nezhar/snypy-backend .
 RUN git checkout $GIT_HASH
 RUN pip install pip -U
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements/base.txt
 
 WORKDIR /usr/src/app/snypy
 ENV SECRET_KEY=static

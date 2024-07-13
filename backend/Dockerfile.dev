@@ -1,7 +1,7 @@
 # https://hub.docker.com/_/python
 FROM python:3.10-slim
 WORKDIR /usr/src/app/snypy
-COPY /code/snypy-backend/requirements.txt /usr/src/app/snypy/requirements.txt
+COPY /code/snypy-backend/requirements/base.txt /usr/src/app/snypy/requirements.txt
 RUN pip install --no-cache-dir pip gunicorn psycopg2-binary -U
 RUN pip install --no-cache-dir -r requirements.txt
 
