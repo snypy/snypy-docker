@@ -19,7 +19,6 @@ services:
       context: ./backend/
       args:
         GIT_HASH: "${API_VERSION}"
-    command: gunicorn --bind 0.0.0.0:8000 snypy.wsgi --log-level info
     environment:
       DEBUG: "False"
       SECRET_KEY: "secret"
