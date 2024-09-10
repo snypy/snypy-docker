@@ -3,8 +3,8 @@
 ## Setup Application
 
 * Create `docker-compose.override.yml` based on `docker-compose.override.example.yml` on adapt configuration
-* Pull container images: `docker-compose pull`
-* Start containers: `docker-compose up`
+* Pull container images: `docker compose pull`
+* Start containers: `docker compose up`
 
 ## Working with fixtures 
 
@@ -13,7 +13,7 @@ Fixtures can be used in order to speed up the setup of the application.
 ### Creat a new fixture
 
 ```bash
-docker-compose run --rm api python manage.py dumpdata --indent 4 --output /fixtures/setup.json --natural-foreign --natural-primary auth users shares snippets teams
+docker compose run --rm api python manage.py dumpdata --indent 4 --output /fixtures/setup.json --natural-foreign --natural-primary auth users shares snippets teams
 ```
 
 ### Load existing fixture
@@ -21,7 +21,7 @@ docker-compose run --rm api python manage.py dumpdata --indent 4 --output /fixtu
 The fixtures are located inside `data/fixtures` which is can be maped in the `docker-compose.override.yml`, ex: `./data/fixtures/:/fixtures/`.
 
 ```bash
-docker-compose run --rm api python manage.py loaddata /fixtures/setup.json
+docker compose run --rm api python manage.py loaddata /fixtures/setup.json
 ```
 
 The current fixture available in the repository contains some dumy data, language configuration and an admin (Usernmae: `admin`, Password: `12345678!`)
@@ -32,9 +32,9 @@ The following steps are required:
 
 * Create a override file based on the dev confgiuration: `cp docker-compose.override.dev.yml docker-compose.override.yml`
 * Clone the code of the rest API: `git clone https://github.com/snypy/snypy-backend.git code/snypy-backend`
-* Run docker compose: `docker-compose up`
+* Run docker compose: `docker compose up`
 
-The api container will load the code form the local volume and start the development server which reload on every change in the python files. All Django command can run via the container: `docker-compose exec api python manage.py makemigrations`
+The api container will load the code form the local volume and start the development server which reload on every change in the python files. All Django command can run via the container: `docker compose exec api python manage.py makemigrations`
 
 ## Make the containers publicly avaialble
 
@@ -144,7 +144,7 @@ services:
 Afterwards restart the containers and check the status
 
 ```bash
-user@serverName:/snypy# docker-compose ps
+user@serverName:/snypy# docker compose ps
         Name                       Command               State            Ports          
 -----------------------------------------------------------------------------------------
 snypy-docker_api_1      gunicorn --bind 0.0.0.0:80 ...   Up      127.0.0.1:8000->8000/tcp
