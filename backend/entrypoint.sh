@@ -27,14 +27,14 @@ fi
 
 echo "Binding to address $BIND_ADDRESS"
 
+if [ "$RUN_MODE" != "production" ]; then
+    echo "Install dev dependencies..."
+    pip install -e "..[dev]"
+fi
+
 # Check if run command is provided
 if [ -z "$@" ]; then
     echo "No command provided. Running default Django server."
-
-    if [ "$RUN_MODE" != "production" ]; then
-        echo "Install dev dependencies..."
-        pip install -r ../requirements/dev.txt
-    fi
 
     echo "Running migrations..."
     python manage.py migrate
