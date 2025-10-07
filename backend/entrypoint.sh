@@ -29,7 +29,7 @@ echo "Binding to address $BIND_ADDRESS"
 
 if [ "$RUN_MODE" != "production" ]; then
     echo "Install dev dependencies..."
-    pip install -e "..[dev]"
+    pip install -e "..[dev]" || { echo 'Failed to install dev dependencies'; exit 1; }
 fi
 
 # Check if run command is provided
